@@ -8,7 +8,6 @@ import LoadMore from "../LoadMore/LoadMore";
 import useFilter from "../../hooks/useFilter";
 import usePosts from "../../hooks/usePosts";
 import usePaginate from "../../hooks/usePaginate";
-import { FavouritesProvider } from "../../hooks/useFavourites";
 
 const PostPage = () => {
   const [state, dispatch] = usePaginate(6);
@@ -21,37 +20,35 @@ const PostPage = () => {
   );
 
   return (
-    <FavouritesProvider>
-      <MainLayout>
-        <Filters
-          view={view}
-          search={search}
-          order={order}
-          limit={state.pageSize}
-          setView={setView}
-          setSearch={setSearch}
-          setOrder={setOrder}
-          setLimit={pageSize => {
-            dispatch({ type: "setPageSize", payload: pageSize });
-          }}
-        />
-        {data && <Posts posts={data} view={view} />}
+    <MainLayout>
+      <Filters
+        view={view}
+        search={search}
+        order={order}
+        limit={state.pageSize}
+        setView={setView}
+        setSearch={setSearch}
+        setOrder={setOrder}
+        setLimit={pageSize => {
+          dispatch({ type: "setPageSize", payload: pageSize });
+        }}
+      />
+      {data && <Posts posts={data} view={view} />}
 
-        <LoadMore
-          setLoadMore={() => {
-            dispatch({ type: "getMore" });
-          }}
-          isLoading={isLoading}
-        />
-        <Pagination
-          currentPage={state.currentPage}
-          setCurrentPage={page => {
-            dispatch({ type: "setPage", payload: page });
-          }}
-          limit={state.limit}
-        />
-      </MainLayout>
-    </FavouritesProvider>
+      <LoadMore
+        setLoadMore={() => {
+          dispatch({ type: "getMore" });
+        }}
+        isLoading={isLoading}
+      />
+      <Pagination
+        currentPage={state.currentPage}
+        setCurrentPage={page => {
+          dispatch({ type: "setPage", payload: page });
+        }}
+        limit={state.limit}
+      />
+    </MainLayout>
   );
 };
 

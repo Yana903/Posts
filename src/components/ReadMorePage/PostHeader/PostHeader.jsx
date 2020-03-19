@@ -5,7 +5,7 @@ const PostHeader = ({ title, author }) => {
     <h1 class="uk-heading-bullet uk-margin-medium-bottom">
       <span>{title}</span>
       <a class="uk-text-small" href="#">
-        {author}
+        Author userId: {author}
       </a>
     </h1>
   );

@@ -11,24 +11,21 @@ import { usePostsComments } from "../../hooks/usePosts";
 const ReadMore = () => {
   let { id } = useParams();
   const [state] = usePostsComments(id);
-  const { data, error } = state;
+  const {isLoading, data, error } = state;
   return (
-    <FavouritesProvider>
-      <MainLayout>
-        {data && <PostHeader
-          title={data.title}
-          author="some Author"
-        />}
-        {data && <PostBody
-            body={data.body}
-        />}
-        <hr />
-        {data && <Comments
-            comments={data.comments}
-        />}
-        <CommentForm />
-      </MainLayout>
-    </FavouritesProvider>
+    <MainLayout>
+      {isLoading ? (
+          <div
+            className="uk-margin-small-left uk-icon uk-spinner"
+            uk-spinner="ratio: 0.6"
+          ></div>
+        ) : null}
+      {data && <PostHeader title={data.title} author={data.userId} />}
+      {data && <PostBody body={data.body} />}
+      <hr />
+      {data && <Comments comments={data.comments} />}
+      <CommentForm />
+    </MainLayout>
   );
 };
 

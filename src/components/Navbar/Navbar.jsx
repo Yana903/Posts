@@ -18,7 +18,6 @@ const Navbar = () => {
             <NavLink to="/albums" activeClassName="active">ALBUMS</NavLink>
           </li>
         </ul>
-        <div>Favourite(s) {favourites.length}</div>
       </div>
       <div className="uk-navbar-right">
         <div className="uk-navbar-item">
@@ -36,6 +35,7 @@ const Navbar = () => {
               <Favourite />
             </div>
           </div>
+          <div style={{color:"red"}}>({favourites.length})</div>
         </div>
       </div>
     </nav>
