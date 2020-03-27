@@ -4,7 +4,7 @@ import SelectAD from "../Select/SelectAD"
 import SelectPageSize from "../Select/SelectPageSize"
 
 
-const Filters = ({view, search, order, limit, setView, setSearch, setOrder, setLimit, searchQuery, setSearchQuery}) => {
+const Filters = ({view, search, order, limit, setView, setSearch, setOrder, setLimit}) => {
     return(
         <div className="uk-margin-medium-bottom uk-flex">
             <form className="uk-search uk-search-default uk-width-medium uk-margin-remove uk-margin-right">
@@ -18,7 +18,6 @@ const Filters = ({view, search, order, limit, setView, setSearch, setOrder, setL
                 type="search"
                 value={search || ''}
                 onChange = { e => setSearch(e.target.value)}
-                // onKeyDown={ e => setSearchQuery(e)}
                 placeholder="Search..."
               />
             </form>

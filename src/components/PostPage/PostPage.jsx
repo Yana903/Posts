@@ -10,15 +10,17 @@ import usePosts from "../../hooks/usePosts";
 import usePaginate from "../../hooks/usePaginate";
 
 const PostPage = () => {
-  const [state, dispatch] = usePaginate(6);
   const [view, setView] = useState("list"); //grid
   const { search, setSearch, order, setOrder } = useFilter();
-  const [{ isLoading, data, error }] = usePosts(
+  const [state, dispatch] = usePaginate(6, 0);
+  const [{ isLoading, data, totalCount, error }] = usePosts(
     `${state.pagingMode === 0 ? "_page" : "_start"}=${
       state.pagingMode === 0 ? state.currentPage : state.startIndex
     }` + `&_limit=${state.limit}&q=${search}&_sort=id&_order=${order}`
   );
-
+  if(state.totalCount !== totalCount) {
+    dispatch({ type: "setTotalCount", payload: totalCount });
+  }
   return (
     <MainLayout>
       <Filters
@@ -43,10 +45,12 @@ const PostPage = () => {
       />
       <Pagination
         currentPage={state.currentPage}
+        totalCount={totalCount}
         setCurrentPage={page => {
           dispatch({ type: "setPage", payload: page });
         }}
         limit={state.limit}
+        pageSize={state.pageSize}
       />
     </MainLayout>
   );

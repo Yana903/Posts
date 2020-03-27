@@ -26,7 +26,7 @@ const Navbar = () => {
             type="button"
             uk-icon="icon: heart; ratio: 2"
             area-expanded="false"
-          />
+          > </button>
           <div className="uk-width-large uk-dropdown" uk-dropdown="mode: click">
             <div
               className="uk-dropdown-grid uk-child-width-1-1@m uk-grid"

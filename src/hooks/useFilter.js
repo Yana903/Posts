@@ -6,8 +6,7 @@ const useFilter = (
     ) => {
     const [search, setSearch] = useState(initialSearch);
     const [order, setOrder] = useState(initialOrder);
-    // const [limit, setLimit] = useState(initialLimit);
-
+    
     return {search, setSearch, order, setOrder}
 }
 

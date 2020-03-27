@@ -7,7 +7,6 @@ import ReadMore from "./components/ReadMorePage/ReadMore";
 import { FavouritesProvider } from "./hooks/useFavourites";
 
 const App = () => {
-  
   return (
     <FavouritesProvider>
     <Switch>

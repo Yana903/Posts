@@ -6,11 +6,13 @@ const Pagination = (props) => {
   let pages = [];
   let startPage = 1;
   let pagingNumberItems = 5;
-  let endPage = startPage + pagingNumberItems;
-  let maxPage = Math.ceil(props.maxItemQty / props.limit);
+  let endPage = startPage + pagingNumberItems - 1;
+  // Count number of pages
+  let maxPage = Math.ceil(props.totalCount / props.pageSize);
 
   endPage = (endPage > maxPage ? maxPage : endPage);
   let pagesToDisplay = pagingNumberItems;
+
   if ( (maxPage - startPage) <= pagingNumberItems) {
     pagesToDisplay = maxPage - startPage
   }

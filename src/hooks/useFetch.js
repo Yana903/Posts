@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import request from "../lib/request";
+import {requestGet} from "../lib/requestGet";
 
 const initialState = {
     isLoading: false,
@@ -10,21 +10,28 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "init":
             return {
+                ...state,
                 isLoading: true,
                 data: null,
-                error: null
+                totalCount: 0,
+                error: null,
             }
         case "success":
+            console.log("dispatch:"+action.totalCount);
             return {
+                ...state,
                 isLoading: false,
                 data: action.payload,
+                totalCount: action.totalCount,
                 error: null
             }
         case "error":
             return {
+                ...state,
                 isLoading: false,
                 data: null,
-                error: action.payload
+                totalCount: 0,
+                error: action.payload,
             }
         default:
             return state;
@@ -36,8 +43,13 @@ const useFetch = (url) => {
     
     useEffect(() => {
         dispatch({type: "init"})
-        request(url)
-        .then(data => dispatch({type: "success", payload: data}))
+        requestGet(url)
+        .then(response => {
+            let totalCount = response.totalCount;
+            response.jsonData.json()
+            .then(data => dispatch({type: "success", payload: data, totalCount}))   
+            .catch(error => dispatch({type: "error", payload: error}));
+        })
         .catch(error => dispatch({type: "error", payload: error}));
       }, [url]);
 

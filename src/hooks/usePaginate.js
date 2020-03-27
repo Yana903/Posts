@@ -11,6 +11,9 @@ const reducerPaginate = (state, action) => {
       };
     case "setPage":
       let newCurrentPage = action.payload < 1 ? 1 : action.payload;
+      let maxPage = Math.ceil(state.totalCount / state.pageSize);
+      newCurrentPage = newCurrentPage > maxPage ? maxPage : newCurrentPage;
+
       return {
         ...state,
         pagingMode: 0,
@@ -27,18 +30,24 @@ const reducerPaginate = (state, action) => {
         pageSize: action.payload,
         currentPage: 1
       };
+      case "setTotalCount":
+        return {
+          ...state,
+          totalCount: action.payload
+        }; 
     default:
       return state;
   }
 };
 
-const usePaginate = pageSize => {
+const usePaginate = (pageSize, totalCount) => {
   const initialState = {
     pagingMode: 0,
     startIndex: 1,
     currentPage: 1,
     limit: pageSize,
-    pageSize: pageSize
+    pageSize: pageSize,
+    totalCount: totalCount
   };
 
   const [state, dispatch] = useReducer(reducerPaginate, initialState);
